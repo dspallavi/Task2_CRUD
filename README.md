@@ -1,4 +1,24 @@
 # CrudApp
+1) Created the User Module
+2) created user-details component and user list component under user module
+3) created home route in app.routing module.
+4) re directed to home routing by default and incorrect url invoked.
+
+USed @ngx-pwa/local-storage to store data locally along with BehaviorSubject
+
+Used bootstrap5 to desing form and table.
+
+Used fontawsome for icons.
+
+implemented lazy loading for user module
+
+
+implemented template driven approach.
+
+
+
+
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.1.
 
