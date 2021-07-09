@@ -1,0 +1,18 @@
+<div class="card" >
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="User Name" [(ngModel)]="userDetails.userName">
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="User Id" aria-label="userid" [(ngModel)]="userDetails.userId">
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Department" aria-label="dept" [(ngModel)]="userDetails.department">
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+        <button type="button" class="btn btn-primary float-end" (click)="saveUserDetails()" [disabled]="(!userDetails.userName || !userDetails.userId || !userDetails.department)">Save</button>
+    </div>
+</div>
