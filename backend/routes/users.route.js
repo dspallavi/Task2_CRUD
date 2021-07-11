@@ -70,7 +70,7 @@ usersRoute.route('/update/:id').put((req, res, next) => {
 
 // Delete user
 usersRoute.route('/delete/:id').delete((req, res, next) => {
-  Users.findOneAndRemove(req.params.id, (error, data) => {
+  Users.findByIdAndRemove(req.params.id, (error, data) => {
     if (error) {
       return next(error);
     } else {

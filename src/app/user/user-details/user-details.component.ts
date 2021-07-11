@@ -31,21 +31,21 @@ export class UserDetailsComponent implements OnInit {
   }
 
   saveUserDetails() {
-    this.userService.validateUser({'user_id': this.userDetails.user_id, 'password': this.userDetails.password}).subscribe((res) => {
-      if(!Array.isArray(res)) {
-        if(this.mode === 'add') {
+    if(this.mode === 'add') {
+      this.userService.validateUser({'user_id': this.userDetails.user_id, 'password': this.userDetails.password}).subscribe((res) => {
+        if(!Array.isArray(res)) {
           delete this.userDetails._id;
           this.userService.createUser(this.userDetails).subscribe((result: any) => {
             this.postUsersUpdate();
           });
         } else {
-          this.userService.updateUser(this.userDetails._id, this.userDetails).subscribe((result: any) => {
-            this.postUsersUpdate();   
-          });
+          alert(`User id with ${this.userDetails.user_id} already exists.`)
         }
-      } else {
-        alert(`User id with ${this.userDetails.user_id} already exists.`)
-      }
-    });
+      });
+    } else {
+      this.userService.updateUser(this.userDetails._id, this.userDetails).subscribe((result: any) => {
+        this.postUsersUpdate();   
+      });
+    }
   }
 }

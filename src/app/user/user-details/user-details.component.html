@@ -5,7 +5,7 @@
           <input type="text" class="form-control" placeholder="User Name" [(ngModel)]="userDetails.user_name">
         </div>
         <div class="col">
-          <input type="text" class="form-control" placeholder="User Id" aria-label="dept" [(ngModel)]="userDetails.user_id">
+          <input type="text" class="form-control" placeholder="User Id" aria-label="dept" [(ngModel)]="userDetails.user_id" [disabled]="mode === 'edit'">
         </div>
         <div class="col">
           <input type="text" class="form-control" placeholder="Password" aria-label="userid" [(ngModel)]="userDetails.password">
