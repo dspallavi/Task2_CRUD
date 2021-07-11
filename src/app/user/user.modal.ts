@@ -1,6 +1,8 @@
 export interface UserDetails {
-    userName: string,
-    userId: string,
+    user_name: string,
+    password: string,
+    user_id: string,
+    role: string,
     department: string,
-    key?: number
+    _id?: string
 }

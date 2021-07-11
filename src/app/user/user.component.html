@@ -1,2 +1,13 @@
-<app-user-details></app-user-details>
-<app-users-list></app-users-list>
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand">User Management System</a>
+    <a class="navbar-brand">
+        Welcome, {{loggedInUser[0].user_name}}
+        <fa-icon [icon]="logutIcon" class="logout" (click)="logout()"></fa-icon>
+    </a>
+</nav>
+<div class="card bg-color" >
+    <div class="card-body">
+        <app-user-details></app-user-details>
+        <app-users-list></app-users-list>
+    </div>
+</div>

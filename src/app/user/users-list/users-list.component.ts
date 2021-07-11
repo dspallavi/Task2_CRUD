@@ -11,18 +11,32 @@ import { UserDetails } from '../user.modal';
 export class UsersListComponent implements OnInit {
   editicon = faEdit;
   delIcon = faTrash;
+  usersList: Array<UserDetails> = [];
 
-  constructor(public userSvc: UserService) { }
+  constructor(public userService: UserService) { }
 
   ngOnInit(): void {
+    this.getUserList();
+    this.userService.isUserupdated$.subscribe((isupdated: boolean) => {
+      if(isupdated) {
+        this.getUserList();
+      }
+    });
   }
 
-  deleteUser(user: UserDetails, key: number) {
-       this.userSvc.deleteUser(user);
+  getUserList() {
+    this.userService.getUserList().subscribe((results: any) => {
+      this.usersList = results;
+    })
   }
 
-  editUser(user: UserDetails, key: number) {
-    user.key = key;
-    this.userSvc.editUser(user);
+  deleteUser(user: any) {
+      this.userService.deleteUser(user._id).subscribe((res: any) => {
+        this.getUserList();
+      })
+  }
+
+  editUser(user: any) {
+    this.userService.isUserSelected$.next(user._id);
   }
 }

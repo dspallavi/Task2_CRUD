@@ -8,27 +8,44 @@ import { UserService } from '../user.service';
   styleUrls: ['./user-details.component.sass']
 })
 export class UserDetailsComponent implements OnInit {
-  userDetails: UserDetails = {department: "", userId : "", userName : ""};
-  isEdit = false;
+  userDetails: UserDetails = {user_name: '', user_id : '', department: '', role: '', password: ''};
+  mode: string = 'add';
 
-  constructor(private userSvc: UserService) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.userSvc.singleUserSubject$.subscribe((user:UserDetails) => {
-        this.userDetails = Object.assign({}, user);
-        this.isEdit = true;
+    this.userService.isUserSelected$.subscribe((id: string) => {
+      if(id) {
+        this.userService.getUser(id).subscribe((respnse: UserDetails) => {
+            this.userDetails = respnse;
+            this.mode = 'edit';
+        })
+      }
     });
   }
 
+  postUsersUpdate() {
+    this.userDetails = {user_name: '', user_id : '', department: '', role: '', password: ''};
+    this.userService.isUserupdated$.next(true);
+    this.mode = 'add';
+  }
+
   saveUserDetails() {
-    let localList = this.userSvc.usersListStore.map(rec => Object.assign({}, rec));
-    if(this.isEdit) {
-      localList = localList.filter(r => r.userName !== this.userDetails.userName && r.key !== this.userDetails.key && 
-        r.userId !== this.userDetails.userId && r.department !== this.userDetails.department);
-    }
-    localList.push(this.userDetails);
-    this.userSvc.saveUser(localList);
-    this.userDetails = {department: "", userId : "", userName : ""};
-    this.isEdit = false;
+    this.userService.validateUser({'user_id': this.userDetails.user_id, 'password': this.userDetails.password}).subscribe((res) => {
+      if(!Array.isArray(res)) {
+        if(this.mode === 'add') {
+          delete this.userDetails._id;
+          this.userService.createUser(this.userDetails).subscribe((result: any) => {
+            this.postUsersUpdate();
+          });
+        } else {
+          this.userService.updateUser(this.userDetails._id, this.userDetails).subscribe((result: any) => {
+            this.postUsersUpdate();   
+          });
+        }
+      } else {
+        alert(`User id with ${this.userDetails.user_id} already exists.`)
+      }
+    });
   }
 }

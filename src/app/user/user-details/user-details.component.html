@@ -2,10 +2,16 @@
     <div class="card-body">
       <div class="row">
         <div class="col">
-          <input type="text" class="form-control" placeholder="User Name" [(ngModel)]="userDetails.userName">
+          <input type="text" class="form-control" placeholder="User Name" [(ngModel)]="userDetails.user_name">
         </div>
         <div class="col">
-          <input type="text" class="form-control" placeholder="User Id" aria-label="userid" [(ngModel)]="userDetails.userId">
+          <input type="text" class="form-control" placeholder="User Id" aria-label="dept" [(ngModel)]="userDetails.user_id">
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Password" aria-label="userid" [(ngModel)]="userDetails.password">
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="User Role" aria-label="dept" [(ngModel)]="userDetails.role">
         </div>
         <div class="col">
           <input type="text" class="form-control" placeholder="Department" aria-label="dept" [(ngModel)]="userDetails.department">
@@ -13,6 +19,6 @@
       </div>
     </div>
     <div class="card-footer">
-        <button type="button" class="btn btn-primary float-end" (click)="saveUserDetails()" [disabled]="(!userDetails.userName || !userDetails.userId || !userDetails.department)">Save</button>
+        <button type="button" class="btn btn-primary float-end" (click)="saveUserDetails()" [disabled]="!userDetails.user_id || !userDetails.password">Save</button>
     </div>
 </div>
